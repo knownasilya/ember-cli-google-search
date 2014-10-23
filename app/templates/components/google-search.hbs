@@ -1,1 +1,36 @@
-{{yield}}
+<form {{bind-attr class='inNavbar:navbar-form :search-group'}}
+  role="search" {{action 'search' searchQuery on='submit'}}>
+  <div class="wrapper">
+    <div class="form-group">
+      {{input type='text'
+        value=searchQuery
+        name='search_query'
+        class=inputClass
+        autocomplete='off'
+        placeholder=placeholder
+        viewName='inputView'
+      }}
+
+      {{#if searchQuery}}
+        <i class="icon fa fa-times-circle" {{action 'clearSelected' true}}></i>
+      {{else}}
+        <i class="icon fa fa-search"></i>
+      {{/if}}
+    </div>
+
+    <ul {{bind-attr class=':dropdown-menu :dropdown-menu-left searchResults.length:show:hidden'}} role="menu" aria-labelledby="dropdownMenu1">
+      {{#each searchResults}}
+        <li role="presentation" {{bind-attr class='isSelected'}} {{action 'select' this}}>
+          <a role="menuitem" tabindex="1" {{bind-attr title='address'}}>
+            {{#if icon}}
+              <img {{bind-attr src=icon}} with=20 height=20>
+            {{/if}}
+            {{address}}
+          </a>
+        </li>
+      {{else}}
+        <li role="presentation">No results</li>
+      {{/each}}
+    </ul>
+  </div>
+</form>

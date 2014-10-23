@@ -1,5 +1,11 @@
 import Ember from 'ember';
-import observerThrottled from 'ember-cli-google-search/addon/utils/observer-throttled';
+import observerThrottled from 'ember-cli-google-search/utils/observer-throttled';
+
+var google = window.google;
+
+if (!google) {
+  throw new Error('Need to have the `google` object defined on the global window object');
+}
 
 export default Ember.Component.extend({
   classNames: ['google-search', 'component'],
@@ -7,6 +13,7 @@ export default Ember.Component.extend({
   inNavbar: false,
   itemControllerIndex: 0,
   selectedIndex: -1,
+  bounds: new google.maps.LatLngBounds(),
 
   initAutocomplete: function () {
     var $temp = Ember.$('<div/>');
@@ -53,8 +60,8 @@ export default Ember.Component.extend({
 
             var ac = result.address_components;
 
-            return result && result.geometry && bounds.contains(result.geometry.location)
-              && ac.findBy('short_name', 'NY');
+            return result && result.geometry;// && bounds.contains(result.geometry.location)
+              //&& ac.findBy('short_name', 'NY');
           });
 
           self.set('searchResults', filtered.map(function (item) {

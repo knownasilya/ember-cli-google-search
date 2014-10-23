@@ -25,6 +25,11 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     ENV.APP.LOG_VIEW_LOOKUPS = true;
+    ENV.contentSecurityPolicy = {
+      'default-src': "'self' 'unsafe-inline' https://maps.googleapis.com https://maps.gstatic.com",
+      'script-src': "'self' 'unsafe-inline' 'unsafe-eval' https://maps.googleapis.com https://maps.gstatic.com",
+      'style-src': "'self' 'unsafe-inline'"
+    };
   }
 
   if (environment === 'test') {
