@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import observerThrottled from 'addon/utils/observer-throttled';
+import observerThrottled from 'ember-cli-google-search/addon/utils/observer-throttled';
 
 export default Ember.Component.extend({
   classNames: ['google-search', 'component'],
